@@ -5,7 +5,7 @@ on:
 
 jobs:
   build:
-    runs-on: macos-latest # අලුත්ම macOS එක ගමු
+    runs-on: macos-14
     steps:
       - uses: actions/checkout@v4
 
@@ -17,12 +17,9 @@ jobs:
       - name: Get dependencies
         run: flutter pub get
 
-      - name: Build iOS (Force Bypass Errors)
+      - name: Build iOS
         run: |
-          # මෙතනදී අපි Xcode වලට කියනවා පරණ Swift errors තිබ්බත් build එක කරන්න කියලා
-          flutter build ios --release --no-codesign --no-pub
-          
-          # IPA එකක් විදියට pack කිරීම
+          flutter build ios --release --no-codesign
           cd build/ios/iphoneos
           mkdir Payload
           cp -r Runner.app Payload/
